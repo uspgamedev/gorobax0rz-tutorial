@@ -7,7 +7,8 @@ local function makeGoroba (x, y)
   local goroba = {
     sprite = goroba_sprite,
     x = x,
-    y = y
+    y = y,
+    time = 5.0
   }
   goroba.ox = goroba.sprite:getWidth()/2
   goroba.oy = goroba.sprite:getHeight()/2
@@ -30,8 +31,21 @@ function love.keypressed (button)
   end
 end
 
-function love.draw ()
+function love.update (dt)
+  local to_be_removed = {}
   for i,goroba in ipairs(gorobas) do
+    goroba.time = math.max(goroba.time - dt, 0)
+    if goroba.time <= 0 then
+      table.insert(to_be_removed, i)
+    end
+  end
+  for _,i in ipairs(to_be_removed) do
+    table.remove(gorobas, i)
+  end
+end
+
+function love.draw ()
+  for _,goroba in ipairs(gorobas) do
     love.graphics.draw(
       goroba.sprite, goroba.x, goroba.y,
       0, 1, 1, -- rotation, horizontal scale, vertical scale
