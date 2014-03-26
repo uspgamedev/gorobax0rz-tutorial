@@ -1,0 +1,28 @@
+
+1) Começando
+  - Projeto vazio
+  - Projeto básico: conf.lua, sublime-project, e hello sprite
+
+2) Funcionalidades básicas
+  - Clique do mouse: mudando o sprite de lugar
+  - Tabelas 1: estruturando o sprite
+  - Tabelas 2: coleção de sprites (sequência)
+  - Botões do teclado: fechando a janela com ESC
+  - Função update: gorobax0rs somem depois de um tempo
+    - IT'S A TRAP: remoção de objetos! (table.remove vs sets)
+
+3) A Wild Wil Has Appeared!
+  - Criando Wils
+  - Movendo Wils
+
+4) LASERS
+  - Detectando alvos
+  - Destruindo alvos
+  - Animação dos LASERS
+  - Efeito sonoro dos LASERS
+
+5) Balanceamento
+  - Wils com Vida
+  - Dinheiro para comprar Gorobaz0rs
+  - Condição de derrota
+  - Condição de vitória
