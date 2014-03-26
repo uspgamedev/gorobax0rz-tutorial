@@ -56,9 +56,18 @@ function love.keypressed (button)
   end
 end
 
+local function dist (entityA, entityB)
+  return math.sqrt((entityA.x-entityB.x)^2+(entityA.y-entityB.y)^2)
+end
+
 local function updateGorobas (dt)
   local to_be_removed = {}
   for i,goroba in ipairs(world.gorobas) do
+    for i,wil in ipairs(world.wils) do
+      if dist(goroba, wil) <= 150 then
+        wil.color = { 255, 100, 100, 255 }
+      end
+    end
     goroba.time = math.max(goroba.time - dt, 0)
     if goroba.time <= 0 then
       table.insert(to_be_removed, i)
@@ -75,7 +84,7 @@ local function updateWils (dt)
   end
   delay = math.max(delay - dt, 0)
   if delay <= 0 then
-    table.insert(world.wils, makeWil(W-200, H/4+H/2*love.math.random()))
+    table.insert(world.wils, makeWil(W+100, H/4+H/2*love.math.random()))
     delay = 1+expRand(0.5)
   end
 end
@@ -88,6 +97,11 @@ end
 function love.draw ()
   for _,group in pairs(world) do
     for _,entity in ipairs(group) do
+      love.graphics.setColor(255,255,255,255)
+      if entity.color then
+        love.graphics.setColor(entity.color)
+        entity.color = nil
+      end
       love.graphics.draw(
         entity.sprite, entity.x, entity.y,
         0, 1, 1, -- rotation, horizontal scale, vertical scale
