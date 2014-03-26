@@ -14,9 +14,9 @@
 
 3) A Wild Wil Has Appeared!
   - Criando Wils no começo
+  - Refatoração: abstraindo entidades
   - Criando Wils com tempo
   - Movendo Wils
-  - Refatoração: abstraindo entidades
 
 4) LASERS
   - Detectando alvos
