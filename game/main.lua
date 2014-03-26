@@ -1,7 +1,9 @@
 
 local gorobas
+local wils
 -- We cache the image, obviously
 local goroba_sprite
+local wil_sprite
 
 local function makeGoroba (x, y)
   local goroba = {
@@ -15,9 +17,27 @@ local function makeGoroba (x, y)
   return goroba
 end
 
+local function makeWil (x, y)
+  local wil = {
+    sprite = wil_sprite,
+    x = x,
+    y = y
+  }
+  wil.ox = wil_sprite:getWidth()/2
+  wil.oy = wil_sprite:getHeight()/2
+  return wil
+end
+
 function love.load ()
   gorobas = {}
   goroba_sprite = love.graphics.newImage 'assets/sprites/hero_goroba_small.png'
+  wils = {}
+  wil_sprite = love.graphics.newImage 'assets/sprites/hero_wil_small.png'
+  for i=1,10 do
+    local x = 800+100*love.math.random()
+    local y = 100+500*love.math.random()
+    table.insert(wils, makeWil(x, y))
+  end
   love.graphics.setBackgroundColor(100, 100, 100, 255)
 end
 
@@ -50,6 +70,13 @@ function love.draw ()
       goroba.sprite, goroba.x, goroba.y,
       0, 1, 1, -- rotation, horizontal scale, vertical scale
       goroba.ox, goroba.oy
+    )
+  end
+  for _,wil in ipairs(wils) do
+    love.graphics.draw(
+      wil.sprite, wil.x, wil.y,
+      0, 1, 1, -- rotation, horizontal scale, vertical scale
+      wil.ox, wil.oy
     )
   end
 end

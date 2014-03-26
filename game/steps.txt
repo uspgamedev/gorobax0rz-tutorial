@@ -13,8 +13,10 @@
     - IT'S A TRAP: remoção de objetos!
 
 3) A Wild Wil Has Appeared!
-  - Criando Wils
+  - Criando Wils no começo
+  - Criando Wils com tempo
   - Movendo Wils
+  - Refatoração: abstraindo entidades
 
 4) LASERS
   - Detectando alvos
