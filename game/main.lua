@@ -1,7 +1,11 @@
 
 local world
+-- Wil spawn time
+local delay
 -- We cache the images, obviously
 local sprites
+-- Screen values
+local W, H
 
 local function makeEntity (x, y, sprite)
   local entity = {
@@ -24,20 +28,22 @@ local function makeWil (x, y)
   return makeEntity(x, y, sprites.wil)
 end
 
+local function expRand (lambda)
+  return math.log(love.math.random())/(-lambda)
+end
+
 function love.load ()
   world = {}
   world.gorobas = {}
   world.wils = {}
+  delay = expRand(0.5)
   sprites = {
     goroba  = love.graphics.newImage 'assets/sprites/hero_goroba_small.png',
     wil     = love.graphics.newImage 'assets/sprites/hero_wil_small.png'
   }
-  for i=1,10 do
-    local x = 800+100*love.math.random()
-    local y = 100+500*love.math.random()
-    table.insert(world.wils, makeWil(x, y))
-  end
   love.graphics.setBackgroundColor(100, 100, 100, 255)
+  W = love.window.getWidth()
+  H = love.window.getHeight()
 end
 
 function love.mousepressed (x, y, button)
@@ -50,7 +56,7 @@ function love.keypressed (button)
   end
 end
 
-function love.update (dt)
+local function updateGorobas (dt)
   local to_be_removed = {}
   for i,goroba in ipairs(world.gorobas) do
     goroba.time = math.max(goroba.time - dt, 0)
@@ -61,6 +67,19 @@ function love.update (dt)
   for _,i in ipairs(to_be_removed) do
     table.remove(world.gorobas, i)
   end
+end
+
+local function updateWils (dt)
+  delay = math.max(delay - dt, 0)
+  if delay <= 0 then
+    table.insert(world.wils, makeWil(W-200, H/4+H/2*love.math.random()))
+    delay = expRand(0.5)
+  end
+end
+
+function love.update (dt)
+  updateGorobas(dt)
+  updateWils(dt)
 end
 
 function love.draw ()
