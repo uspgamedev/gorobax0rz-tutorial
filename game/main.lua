@@ -24,6 +24,12 @@ function love.mousepressed (x, y, button)
   table.insert(gorobas, makeGoroba(x, y))
 end
 
+function love.keypressed (button)
+  if button == 'escape' then
+    love.event.push 'quit'
+  end
+end
+
 function love.draw ()
   for i,goroba in ipairs(gorobas) do
     love.graphics.draw(
