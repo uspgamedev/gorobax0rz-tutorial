@@ -36,7 +36,7 @@ function love.load ()
   world = {}
   world.gorobas = {}
   world.wils = {}
-  delay = expRand(0.5)
+  delay = 1+expRand(0.5)
   sprites = {
     goroba  = love.graphics.newImage 'assets/sprites/hero_goroba_small.png',
     wil     = love.graphics.newImage 'assets/sprites/hero_wil_small.png'
@@ -70,10 +70,13 @@ local function updateGorobas (dt)
 end
 
 local function updateWils (dt)
+  for _,wil in ipairs(world.wils) do
+    wil.x = wil.x - 50*dt
+  end
   delay = math.max(delay - dt, 0)
   if delay <= 0 then
     table.insert(world.wils, makeWil(W-200, H/4+H/2*love.math.random()))
-    delay = expRand(0.5)
+    delay = 1+expRand(0.5)
   end
 end
 
