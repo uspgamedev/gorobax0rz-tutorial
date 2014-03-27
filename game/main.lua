@@ -2,8 +2,9 @@
 local world
 -- Wil spawn time
 local delay
--- We cache the images, obviously
+-- We cache the media, obviously
 local sprites
+local sounds
 -- Screen values
 local W, H
 -- Other constants
@@ -90,6 +91,9 @@ function love.load ()
     goroba  = love.graphics.newImage 'assets/sprites/hero_goroba_small.png',
     wil     = love.graphics.newImage 'assets/sprites/hero_wil_small.png'
   }
+  sounds = {
+    laser = love.audio.newSource('assets/sounds/laser.ogg', 'static')
+  }
   love.graphics.setBackgroundColor(100, 100, 100, 255)
   W = love.window.getWidth()
   H = love.window.getHeight()
@@ -111,6 +115,7 @@ local function updateGorobas (to_be_removed, dt)
       if dist(goroba, wil) <= 150 then
         table.insert(to_be_removed, {group='wils',index=j})
         table.insert(world.lasers, makeLaser(goroba.x, goroba.y, wil.x, wil.y))
+        sounds.laser:play()
       end
     end
     goroba.time = math.max(goroba.time - dt, 0)
