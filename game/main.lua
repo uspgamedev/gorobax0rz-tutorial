@@ -60,25 +60,21 @@ local function dist (entityA, entityB)
   return math.sqrt((entityA.x-entityB.x)^2+(entityA.y-entityB.y)^2)
 end
 
-local function updateGorobas (dt)
-  local to_be_removed = {}
+local function updateGorobas (to_be_removed, dt)
   for i,goroba in ipairs(world.gorobas) do
-    for i,wil in ipairs(world.wils) do
+    for j,wil in ipairs(world.wils) do
       if dist(goroba, wil) <= 150 then
-        wil.color = { 255, 100, 100, 255 }
+        table.insert(to_be_removed, {group='wils',index=j})
       end
     end
     goroba.time = math.max(goroba.time - dt, 0)
     if goroba.time <= 0 then
-      table.insert(to_be_removed, i)
+      table.insert(to_be_removed, {group='gorobas',index=i})
     end
-  end
-  for _,i in ipairs(to_be_removed) do
-    table.remove(world.gorobas, i)
   end
 end
 
-local function updateWils (dt)
+local function updateWils (to_be_removed, dt)
   for _,wil in ipairs(world.wils) do
     wil.x = wil.x - 50*dt
   end
@@ -90,8 +86,12 @@ local function updateWils (dt)
 end
 
 function love.update (dt)
-  updateGorobas(dt)
-  updateWils(dt)
+  local to_be_removed = {}
+  updateGorobas(to_be_removed, dt)
+  updateWils(to_be_removed, dt)
+  for _,removal in ipairs(to_be_removed) do
+    table.remove(world[removal.group], removal.index)
+  end
 end
 
 function love.draw ()
