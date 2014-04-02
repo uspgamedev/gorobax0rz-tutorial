@@ -16,8 +16,8 @@ function updateGorobas (to_be_removed, dt)
     if goroba.delay <= 0 then
       for j,wil in ipairs(world.wils) do
         if dist(goroba, wil) <= 150 then
-          table.insert(to_be_removed, {group='wils',index=j})
           table.insert(world.lasers, makeLaser(goroba.x, goroba.y, wil.x, wil.y))
+          wil.hp = wil.hp - 1
           sounds.laser:play()
           goroba.delay = 0.5
           break
