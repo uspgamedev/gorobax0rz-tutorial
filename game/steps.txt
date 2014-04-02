@@ -26,8 +26,8 @@
   - Refatoração: dividindo em arquivos diferentes
 
 5) Balanceamento
+  - Delays de ataque
   - Wils com Vida
   - Dinheiro para comprar Gorobax0rs
-  - Delays de ataque
   - Condição de derrota
   - Condição de vitória
