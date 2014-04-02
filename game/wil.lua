@@ -16,6 +16,7 @@ function updateWils (to_be_removed, dt)
   for i,wil in ipairs(world.wils) do
     if wil.hp <= 0 then
       table.insert(to_be_removed, {group='wils',index=i})
+      money = money + 1
     else
       wil.x = wil.x - 50*dt
     end

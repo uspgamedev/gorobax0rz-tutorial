@@ -9,6 +9,7 @@ function love.load ()
   world.gorobas = {}
   world.wils = {}
   world.lasers = {}
+  money = 10
   -- We cache the media, obviously
   sprites = {
     goroba  = love.graphics.newImage 'assets/sprites/hero_goroba_small.png',
@@ -24,7 +25,10 @@ function love.load ()
 end
 
 function love.mousepressed (x, y, button)
-  table.insert(world.gorobas, makeGoroba(x, y))
+  if money > 2 then
+    table.insert(world.gorobas, makeGoroba(x, y))
+    money = money - 2
+  end
 end
 
 function love.keypressed (button)
@@ -49,4 +53,5 @@ function love.draw ()
       entity:draw() -- same as entity.draw(entity)
     end
   end
+  love.graphics.print(tostring(money), 0, 0)
 end

@@ -5,7 +5,7 @@ end
 
 function makeGoroba (x, y)
   local goroba = makeAvatar(x, y, sprites.goroba)
-  goroba.time = 5.0
+  goroba.time = 10.0
   goroba.delay = 0
   return goroba
 end
