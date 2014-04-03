@@ -38,6 +38,9 @@ function love.keypressed (button)
 end
 
 function love.update (dt)
+  if love.keyboard.isDown 'tab' then
+    dt = dt*3
+  end
   local to_be_removed = {}
   updateGorobas(to_be_removed, dt)
   updateWils(to_be_removed, dt)

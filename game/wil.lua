@@ -19,6 +19,17 @@ function updateWils (to_be_removed, dt)
       money = money + 1
     else
       wil.x = wil.x - 50*dt
+      if wil.x < 0 then
+        -- YOU LOSE
+        local font = love.graphics.newFont(42)
+        love.update = nil
+        love.draw = function ()
+          local old = love.graphics.getFont()
+          love.graphics.setFont(font)
+          love.graphics.print("YOU LOSE", W/2+50, H-200)
+          love.graphics.setFont(old)
+        end
+      end
     end
   end
   delay = math.max(delay - dt, 0)
